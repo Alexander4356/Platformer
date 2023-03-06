@@ -9,7 +9,7 @@ public class PlayerMover : MonoBehaviour
 
     private Vector2 _forceJump;
     private Rigidbody2D _rigidbody;
-    private bool _inAir;
+    private bool _isGrounded;
     private float _horizontalMove;
 
     private void Start()
@@ -35,18 +35,15 @@ public class PlayerMover : MonoBehaviour
 
         _animator.SetFloat("Speed", Mathf.Abs(_horizontalMove));
 
-        if (Input.GetKeyDown(KeyCode.W) && !_inAir)
+        if (Input.GetKeyDown(KeyCode.W) && _isGrounded)
         {
-            _inAir = true;
+            _isGrounded = false;
             _rigidbody.AddForce(_forceJump);
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionEnter2D()
     {
-        if (collision.gameObject.tag == "Ground")
-        {
-            _inAir = false;
-        }
+        _isGrounded = true;
     }
 }
