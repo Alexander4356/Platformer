@@ -4,18 +4,13 @@ using UnityEngine;
 
 public class TrackingCamera : MonoBehaviour
 {
-    private Transform player;
-
-    private void Start()
-    {
-        player = GameObject.FindGameObjectWithTag("Player").transform;
-    }
+    [SerializeField] private Transform _player;
 
     private void LateUpdate()
     {
         Vector3 temp = transform.position;
-        temp.x = player.position.x;
-        temp.y = player.position.y;
+        temp.x = _player.position.x;
+        temp.y = _player.position.y;
 
         transform.position = temp;
     }

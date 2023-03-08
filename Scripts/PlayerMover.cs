@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody2D))]
 public class PlayerMover : MonoBehaviour
 {
     [SerializeField] private float _speed;
     [SerializeField] private Animator _animator;
 
+    private int _speedHash = Animator.StringToHash("Speed");
     private Vector2 _forceJump;
     private Rigidbody2D _rigidbody;
     private bool _isGrounded;
@@ -33,7 +35,7 @@ public class PlayerMover : MonoBehaviour
             transform.eulerAngles = new Vector3(0, 0, 0);
         }
 
-        _animator.SetFloat("Speed", Mathf.Abs(_horizontalMove));
+        _animator.SetFloat(_speedHash, Mathf.Abs(_horizontalMove));
 
         if (Input.GetKeyDown(KeyCode.W) && _isGrounded)
         {
